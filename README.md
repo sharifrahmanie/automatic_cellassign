@@ -3,7 +3,10 @@ Automatic cell type assingning for Single-cell RNA-Seq dataset by provideing cou
 ```r{}
 require(scran)
 require(igraph)
+require(dplyr)
 require(SingleCellExperiment)
+require(BiocSingular)
+require(scater)
 require(AUCell)
 require(reshape2)
 
@@ -16,7 +19,7 @@ automatic_cellassign <- function(counts,
   logcounts(scexp) <- as.matrix(logcounts(scexp))
   dec <- modelGeneVar(scexp)
   scexp <- denoisePCA(scexp, technical = dec, BSPARAM = IrlbaParam())
-  scexp <- runTSNE(scexp, dimred = "PCA", perplexity = 30)
+  scexp <- runTSNE(scexp, dimred = "PCA", subset.row=NULL, perplexity = 30)
   cell_rankings <- AUCell_buildRankings(logcounts(scexp))
   cell_AUC <- AUCell_calcAUC(markerlist, cell_rankings)
   cell_assignment <- AUCell::AUCell_exploreThresholds(
@@ -43,5 +46,7 @@ load("markerlist.RData")
 load("pbmc3k_filtered.RData")
 automatic_cellassign(counts = pbmc3k_filtered,
                       markerlist = markerlist)
+
+
 
 ```
