@@ -1,6 +1,5 @@
 # automatic_cellassign
-Automatic cell type assingning for Single-cell RNA-Seq dataset by provideing count matrix and marker list. 
-Here dataset is Peripheral Blood Mononuclear Cells (PBMC).
+Automatic cell type assigning for Single-cell RNA-Seq dataset by providing count matrix and marker list. Here dataset is Peripheral Blood Mononuclear Cells (PBMC).
 ```r{}
 require(scran)
 require(igraph)
